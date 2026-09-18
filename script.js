@@ -27,17 +27,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ── Carga y Persistencia de Cursos (LocalStorage / Config) ───── */
 function cargarProductos() {
+  const baseConfig = typeof PRODUCTOS !== 'undefined' ? PRODUCTOS : [];
   const guardados = localStorage.getItem('skillup_catalogo_v1');
   if (guardados) {
     try {
-      productosMemoria = JSON.parse(guardados);
+      const parsed = JSON.parse(guardados);
+      productosMemoria = parsed.map(item => {
+        const original = baseConfig.find(b => b.id === item.id);
+        if (original) {
+          return {
+            ...original,
+            ...item,
+            imagen: original.imagen || item.imagen
+          };
+        }
+        return item;
+      });
       return;
     } catch (e) {
       console.error('Error al cargar datos guardados:', e);
     }
   }
   // Fallback inicial a PRODUCTOS de config.js
-  productosMemoria = JSON.parse(JSON.stringify(typeof PRODUCTOS !== 'undefined' ? PRODUCTOS : []));
+  productosMemoria = JSON.parse(JSON.stringify(baseConfig));
 }
 
 function guardarProductosEnStorage() {
@@ -106,7 +118,7 @@ function renderCatalogo(categoria) {
       <div>
         <!-- Imagen y Badge -->
         <div class="relative h-48 overflow-hidden bg-[#18181F]">
-          <img src="${curso.imagen}" alt="${curso.nombre}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <img src="${curso.imagen}" alt="${curso.nombre}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=80'">
           <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-transparent"></div>
           
           <span class="absolute top-3 left-3 bg-black/80 backdrop-blur text-blue-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-blue-400/30">

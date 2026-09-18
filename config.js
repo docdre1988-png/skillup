@@ -284,7 +284,7 @@ const PRODUCTOS = [
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
-    imagen: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=600&q=80",
+    imagen: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=600&q=80",
     descripcion: "Curso práctico para aprender modelado mecánico con Autodesk Inventor, desde la creación de croquis y piezas 3D hasta ensamblajes básicos y planos técnicos.",
     objetivo: "Comprender y aplicar las herramientas fundamentales de Autodesk Inventor para crear croquis, modelar y modificar piezas 3D, elaborar ensamblajes básicos y generar planos técnicos sencillos.",
     publico: "Estudiantes de ingeniería mecánica, industrial y mecatrónica; técnicos de diseño, fabricación o mantenimiento; y principiantes interesados en modelado mecánico.",
