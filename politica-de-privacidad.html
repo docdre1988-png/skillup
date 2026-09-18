@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Política de Privacidad | SkillUP</title>
+  <meta name="description" content="Política de privacidad y protección de datos personales de SkillUP conforme a la Ley N° 29733 de la República del Perú.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            carbon:{ DEFAULT: '#050505', card: '#121212', soft: '#1A1A1A', border: '#262626' },
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            heading: ['"Outfit"', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#050505] text-white antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- BARRA SUPERIOR -->
+  <header class="border-b border-white/10 bg-[#0A0A0E]/95 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center group">
+        <img src="assets/logo-nav.png" alt="SkillUP" class="h-9 w-auto object-contain transition-transform group-hover:scale-105">
+      </a>
+      <a href="index.html" class="inline-flex items-center gap-1.5 text-xs text-zinc-300 hover:text-white transition px-3.5 py-1.5 rounded-full border border-white/20 hover:border-white bg-[#101014] font-bold shadow-sm">
+        <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-white"></i>
+        <span>Volver al sitio</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 w-full">
+    
+    <div class="mb-10 pb-8 border-b border-white/10">
+      <div class="inline-flex items-center gap-2 text-zinc-400 text-xs tracking-[0.25em] uppercase font-bold mb-3">
+        <i data-lucide="shield-check" class="w-4 h-4 text-blue-400"></i>
+        <span>Protección de Datos Personales</span>
+      </div>
+      <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl text-white mb-4 font-black">Política de Privacidad</h1>
+      <p class="text-zinc-400 text-xs sm:text-sm">
+        Conforme a la Ley N° 29733 (Ley de Protección de Datos Personales de Perú) · Última actualización: <span class="text-white font-bold">Marzo 2026</span>
+      </p>
+    </div>
+
+    <div class="space-y-8 text-xs sm:text-sm leading-relaxed text-zinc-300">
+      
+      <section class="space-y-3">
+        <h2 class="font-heading text-lg font-bold text-white flex items-center gap-2">
+          <span class="text-blue-400 font-extrabold">1.</span> Identificación del Titular del Banco de Datos
+        </h2>
+        <p>
+          <strong>SkillUP Educación Virtual S.A.C.</strong>, identificada con RUC N° 20789456123, con domicilio en Lima, Perú, es la titular de la plataforma web y responsable del tratamiento de los datos personales recopilados a través de los formularios y chats de la web.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-heading text-lg font-bold text-white flex items-center gap-2">
+          <span class="text-blue-400 font-extrabold">2.</span> Datos Recopilados y Finalidad
+        </h2>
+        <p>
+          Recopilamos datos personales (nombres, teléfono de contacto/WhatsApp, correo electrónico) con la única finalidad de gestionar tu matrícula, enviarte enlaces de acceso a las sesiones virtuales en vivo, material académico y coordinaciones del curso.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-heading text-lg font-bold text-white flex items-center gap-2">
+          <span class="text-blue-400 font-extrabold">3.</span> Confidencialidad
+        </h2>
+        <p>
+          Nos comprometemos a mantener la estricta reserva de tus datos. No comercializamos ni transferimos tu información personal a terceros con fines publicitarios.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-heading text-lg font-bold text-white flex items-center gap-2">
+          <span class="text-blue-400 font-extrabold">4.</span> Derechos ARCO
+        </h2>
+        <p>
+          Puedes ejercer en cualquier momento tus derechos de Acceso, Rectificación, Cancelación y Oposición escribiendo a <strong>contacto@skillup.pe</strong>.
+        </p>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER Sencillo -->
+  <footer class="border-t border-white/10 bg-[#0A0A0A] py-6 text-center text-xs text-zinc-400">
+    <p>© 2026 SkillUP. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

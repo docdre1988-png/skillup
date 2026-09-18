@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>SkillUP | Cursos Virtuales en Vivo · Aprende Hoy, Crea Mañana</title>
+  <meta name="description" content="SkillUP - Formación técnica en programación, diseño e ingeniería, análisis estadístico y cálculo científico. Cursos en vivo de 12 horas, 70% prácticos.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            carbon: { DEFAULT: '#050505', card: '#101014', soft: '#18181F', border: '#272730' },
+            skillblue: { DEFAULT: '#2563EB', dark: '#1D4ED8', light: '#3B82F6', soft: 'rgba(37, 99, 235, 0.15)' },
+            skillgreen: { DEFAULT: '#4ADE80', neon: '#22C55E', dark: '#16A34A', soft: 'rgba(74, 222, 128, 0.15)' }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            heading: ['"Outfit"', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#050505] text-white antialiased overflow-x-hidden">
+
+  <!-- ============================================================ -->
+  <!-- 1. BARRA DE NAVEGACIÓN                                       -->
+  <!-- ============================================================ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+    <div class="nav-bg transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 min-h-[72px] flex items-center justify-between gap-4">
+
+        <!-- Logo SkillUP -->
+        <a href="#" class="flex-shrink-0 flex items-center group">
+          <img src="assets/logo-nav.png" alt="SkillUP" class="h-12 sm:h-14 lg:h-16 w-auto max-w-[180px] sm:max-w-[220px] object-contain transition-transform group-hover:scale-105">
+        </a>
+
+        <!-- Links desktop -->
+        <ul class="nav-desktop-links items-center gap-6 lg:gap-8 text-sm font-semibold text-zinc-300">
+          <li><a href="#catalogo" class="hover:text-[#4ADE80] transition whitespace-nowrap">Cursos</a></li>
+          <li><a href="#programacion" class="hover:text-[#4ADE80] transition whitespace-nowrap">Fechas & Horarios</a></li>
+          <li><a href="#metodologia" class="hover:text-[#4ADE80] transition whitespace-nowrap">Modelo Académico</a></li>
+          <li><a href="#precios" class="hover:text-[#4ADE80] transition whitespace-nowrap">Precios & Promos</a></li>
+          <li><a href="#docentes" class="hover:text-[#4ADE80] transition whitespace-nowrap">Docentes</a></li>
+        </ul>
+
+        <!-- Botones de Acción -->
+        <div class="flex-shrink-0 flex items-center gap-3">
+          <button id="open-cart-btn" class="relative flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-bold px-3.5 py-2 rounded-full transition">
+            <i data-lucide="book-marked" class="w-4 h-4 text-[#4ADE80]"></i>
+            <span class="hidden sm:inline">Preinscripción</span>
+            <span id="cart-badge" class="w-5 h-5 rounded-full bg-[#2563EB] text-white font-extrabold text-[11px] flex items-center justify-center shadow">0</span>
+          </button>
+
+          <a id="nav-ws-link" href="https://wa.me/51999999999?text=Hola!+Quisiera+información+sobre+los+cursos+de+SkillUP" target="_blank"
+             class="nav-cta-btn flex items-center gap-1.5 bg-[#22C55E] text-black text-xs font-black px-4 py-2 rounded-full hover:bg-[#4ADE80] transition shadow-lg shadow-emerald-500/20">
+            <i data-lucide="message-circle" class="w-4 h-4 fill-black"></i>
+            <span>WhatsApp</span>
+          </a>
+
+          <!-- Mobile menu btn -->
+          <button id="mobile-menu-btn" class="nav-mobile-btn p-2 text-zinc-400 hover:text-white">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Menú Móvil Desplegable -->
+    <div id="mobile-menu" class="hidden bg-[#0A0A0E] border-b border-white/10 px-4 py-4 space-y-3 sm:hidden">
+      <a href="#catalogo" onclick="closeMobileMenu()" class="block text-sm font-medium text-zinc-300 hover:text-[#4ADE80]">Catálogo de Cursos</a>
+      <a href="#programacion" onclick="closeMobileMenu()" class="block text-sm font-medium text-zinc-300 hover:text-[#4ADE80]">Programación de Fechas</a>
+      <a href="#metodologia" onclick="closeMobileMenu()" class="block text-sm font-medium text-zinc-300 hover:text-[#4ADE80]">Modelo Académico</a>
+      <a href="#precios" onclick="closeMobileMenu()" class="block text-sm font-medium text-zinc-300 hover:text-[#4ADE80]">Precios y Facilidades</a>
+      <a href="#docentes" onclick="closeMobileMenu()" class="block text-sm font-medium text-zinc-300 hover:text-[#4ADE80]">Planta Docente</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!-- 2. HERO SECTION                                              -->
+  <!-- ============================================================ -->
+  <section class="relative min-h-[92vh] flex items-center pt-36 sm:pt-40 pb-16 px-4 sm:px-6 overflow-hidden bg-radial-gradient">
+    <div class="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+    <div class="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Textos Hero -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        
+        <div class="inline-flex items-center gap-2 bg-[#2563EB]/15 border border-[#2563EB]/30 px-4 py-1.5 rounded-full text-xs font-bold text-blue-300 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse"></span>
+          <span>Plan de Trabajo 2026 · Cursos Virtuales en Vivo</span>
+        </div>
+
+        <h1 class="font-heading text-4xl sm:text-6xl font-black tracking-tight leading-[1.1]">
+          APRENDE HOY, <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#4ADE80] via-[#60A5FA] to-white">CREA MAÑANA.</span>
+        </h1>
+
+        <p class="text-zinc-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+          Formación técnica práctica en <strong class="text-white font-semibold">Programación</strong>, <strong class="text-white font-semibold">Diseño e Ingeniería 3D</strong> y <strong class="text-white font-semibold">Análisis & Cálculo científico</strong>. Cursos virtuales de 12 horas con acompañamiento docente en vivo.
+        </p>
+
+        <!-- Chips de Características -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2 text-xs">
+          <div class="bg-[#101014] border border-[#2563EB]/30 px-3.5 py-2 rounded-xl flex items-center gap-2 text-zinc-200">
+            <i data-lucide="clock" class="w-4 h-4 text-[#3B82F6]"></i>
+            <span>12 Horas (6 Sesiones)</span>
+          </div>
+          <div class="bg-[#101014] border border-[#4ADE80]/30 px-3.5 py-2 rounded-xl flex items-center gap-2 text-zinc-200">
+            <i data-lucide="zap" class="w-4 h-4 text-[#4ADE80]"></i>
+            <span>70% Práctico</span>
+          </div>
+          <div class="bg-[#101014] border border-white/10 px-3.5 py-2 rounded-xl flex items-center gap-2 text-zinc-200">
+            <i data-lucide="credit-card" class="w-4 h-4 text-emerald-400"></i>
+            <span>Cuotas desde S/ 25</span>
+          </div>
+        </div>
+
+        <!-- Botones Hero -->
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+          <a href="#catalogo" class="w-full sm:w-auto text-center bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold px-8 py-4 rounded-full transition shadow-xl shadow-blue-600/30 text-sm tracking-wide flex items-center justify-center gap-2">
+            <span>Ver Cursos Disponibles</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#programacion" class="w-full sm:w-auto text-center bg-white/10 border border-white/20 text-white font-bold px-7 py-4 rounded-full hover:bg-white/20 transition text-sm flex items-center justify-center gap-2">
+            <i data-lucide="calendar" class="w-4 h-4 text-[#4ADE80]"></i>
+            <span>Ver Calendario de Fechas</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Tarjeta Destacada Hero -->
+      <div class="lg:col-span-5 relative">
+        <div class="bg-gradient-to-b from-[#121218] to-[#0A0A0F] border border-[#2563EB]/40 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-blue-950/50 space-y-6 relative overflow-hidden">
+          <div class="absolute -top-12 -right-12 w-36 h-36 bg-[#2563EB]/20 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="absolute -bottom-12 -left-12 w-36 h-36 bg-[#4ADE80]/15 rounded-full blur-2xl pointer-events-none"></div>
+
+          <div class="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
+            <div>
+              <span class="text-[11px] font-extrabold tracking-widest text-[#4ADE80] uppercase">Apertura Promocional</span>
+              <h3 class="font-heading text-2xl font-black text-white">S/ 80 <span class="text-xs font-normal text-zinc-400 line-through">S/ 100</span></h3>
+            </div>
+            <span class="bg-[#2563EB]/25 text-blue-300 text-xs font-extrabold px-3 py-1 rounded-full border border-[#2563EB]/40 shadow-sm">
+              Periodo 2026
+            </span>
+          </div>
+
+          <div class="space-y-3.5 text-xs text-zinc-300 relative z-10">
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="check-circle2" class="w-4 h-4 text-[#4ADE80] flex-shrink-0 mt-0.5"></i>
+              <span><strong class="text-white">Clases virtuales en vivo:</strong> 6 sesiones de 2 horas mediante Google Meet.</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="check-circle2" class="w-4 h-4 text-[#4ADE80] flex-shrink-0 mt-0.5"></i>
+              <span><strong class="text-white">Metodología práctica:</strong> 30% concepto y 70% resolución de ejercicios.</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="check-circle2" class="w-4 h-4 text-[#4ADE80] flex-shrink-0 mt-0.5"></i>
+              <span><strong class="text-white">Proyecto Integrador:</strong> Acreditas tu aprendizaje con un proyecto real.</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="check-circle2" class="w-4 h-4 text-[#4ADE80] flex-shrink-0 mt-0.5"></i>
+              <span><strong class="text-white">Facilidades de pago:</strong> Cancela en 2 cuotas de S/ 40 o hasta 4 de S/ 25.</span>
+            </div>
+          </div>
+
+          <div class="pt-2 relative z-10">
+            <a href="#catalogo" class="block w-full text-center bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold py-3.5 rounded-xl transition text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30">
+              Explorar Oferta Académica
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 3. BARRA DE GARANTÍAS / TRUST STRIP                          -->
+  <!-- ============================================================ -->
+  <div class="trust-strip-container py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="trust-strip-items flex flex-wrap items-center justify-around gap-6 text-center text-xs text-zinc-300 font-semibold">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="video" class="w-5 h-5 text-[#3B82F6]"></i>
+          <span>Cursos Virtuales en Vivo</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="code-2" class="w-5 h-5 text-[#4ADE80]"></i>
+          <span>70% Ejercicios & Práctica</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="user-check" class="w-5 h-5 text-amber-400"></i>
+          <span>Acompañamiento Docente</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="file-check-2" class="w-5 h-5 text-purple-400"></i>
+          <span>Proyecto Integrador Final</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 4. CATÁLOGO DE CURSOS                                        -->
+  <!-- ============================================================ -->
+  <section id="catalogo" class="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="text-center space-y-3 mb-12">
+      <span class="text-xs font-extrabold text-[#4ADE80] tracking-widest uppercase">Oferta Académica 2026</span>
+      <h2 class="font-heading text-3xl sm:text-5xl font-black">Nuestros Cursos Disponibles</h2>
+      <p class="text-zinc-400 text-sm max-w-xl mx-auto">
+        Diseñados desde cero para estudiantes de ingeniería, arquitectura, tecnología y profesionales que buscan fortalecer sus habilidades técnicas.
+      </p>
+    </div>
+
+    <!-- Filtros de Categoría -->
+    <div class="cat-filters-wrap flex flex-wrap items-center justify-center gap-2.5 mb-10">
+      <button class="cat-btn active" data-category="todos">Todos los Cursos</button>
+      <button class="cat-btn" data-category="Programación y datos">Programación y Datos</button>
+      <button class="cat-btn" data-category="Diseño e ingeniería">Diseño e Ingeniería</button>
+      <button class="cat-btn" data-category="Análisis y cálculo">Análisis y Cálculo</button>
+    </div>
+
+    <!-- Grid de Productos / Cursos -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Inyectado dinámicamente con JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden text-center py-16 space-y-4 bg-[#101014] rounded-2xl border border-white/10 mt-6">
+      <i data-lucide="book-open-check" class="w-12 h-12 text-zinc-500 mx-auto"></i>
+      <h3 class="text-lg font-bold text-white">No se encontraron cursos en esta categoría</h3>
+      <p class="text-xs text-zinc-400">Selecciona otra línea formativa para explorar nuestros programas.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 5. PUNTO 10 & 11 - PROGRAMACIÓN DE FECHAS Y HORARIOS          -->
+  <!-- ============================================================ -->
+  <section id="programacion" class="py-20 bg-[#08080B] border-t border-white/10 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto space-y-10">
+      
+      <div class="text-center space-y-3">
+        <span class="text-xs font-extrabold text-[#3B82F6] tracking-widest uppercase">Plan Mensual de Actividades</span>
+        <h2 class="font-heading text-3xl sm:text-5xl font-black">Programación de Cursos & Inicios</h2>
+        <p class="text-zinc-400 text-sm max-w-xl mx-auto">
+          Calendario oficial de inicios, días de clase y horarios por cada grupo confirmado.
+        </p>
+      </div>
+
+      <!-- Tabla de Programación -->
+      <div class="border border-white/10 rounded-2xl overflow-hidden bg-[#101014] shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-[#18181F] text-zinc-300 font-bold border-b border-white/10">
+              <tr>
+                <th class="p-4">N.°</th>
+                <th class="p-4">Curso</th>
+                <th class="p-4">Docente</th>
+                <th class="p-4">Fecha Inicio</th>
+                <th class="p-4">Finalización</th>
+                <th class="p-4">Días de Clase</th>
+                <th class="p-4">Horario</th>
+                <th class="p-4 text-center">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="schedule-table-body" class="divide-y divide-white/10 text-zinc-300">
+              <!-- Inyectado dinámicamente con JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 p-4 rounded-xl text-xs text-zinc-400 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="info" class="w-4 h-4 text-[#4ADE80] flex-shrink-0"></i>
+          <span>Los grupos se confirman al alcanzar el mínimo de 10 participantes inscritos.</span>
+        </div>
+        <a href="#catalogo" class="text-[#4ADE80] font-bold hover:underline whitespace-nowrap">Matricularme ahora →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 6. MODELO ACADÉMICO & METODOLOGÍA                             -->
+  <!-- ============================================================ -->
+  <section id="metodologia" class="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-6 space-y-6">
+        <span class="text-xs font-extrabold text-[#3B82F6] tracking-widest uppercase">Modelo Pedagógico</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-black text-white">
+          Aprender Haciendo: <br>
+          <span class="text-[#4ADE80]">Práctica desde el primer día</span>
+        </h2>
+        <p class="text-zinc-300 text-sm leading-relaxed">
+          Nuestra propuesta pedagógica elimina las extensas lecturas teóricas. Cada sesión combina una breve explicación conceptual con demostración en vivo y ejercicios resolutivos.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="bg-[#101014] border border-[#2563EB]/30 p-5 rounded-2xl space-y-2">
+            <div class="w-9 h-9 rounded-xl bg-[#2563EB]/20 text-[#3B82F6] flex items-center justify-center font-black text-sm border border-[#2563EB]/40">30%</div>
+            <h4 class="font-bold text-white text-sm">Explicación Conceptual</h4>
+            <p class="text-xs text-zinc-400">Introducción directa a sintaxis, herramientas y comandos esenciales.</p>
+          </div>
+
+          <div class="bg-[#101014] border border-[#4ADE80]/30 p-5 rounded-2xl space-y-2">
+            <div class="w-9 h-9 rounded-xl bg-[#4ADE80]/20 text-[#4ADE80] flex items-center justify-center font-black text-sm border border-[#4ADE80]/40">70%</div>
+            <h4 class="font-bold text-white text-sm">Práctica & Ejercicios</h4>
+            <p class="text-xs text-zinc-400">Casos guiados en vivo, práctica individual y resolución inmediata de dudas.</p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-[#2563EB]/10 to-emerald-900/10 border border-[#2563EB]/30 p-5 rounded-2xl flex items-start gap-4">
+          <i data-lucide="sparkles" class="w-6 h-6 text-[#4ADE80] flex-shrink-0 mt-1"></i>
+          <div>
+            <h4 class="text-sm font-bold text-white">Proyecto Integrador Final</h4>
+            <p class="text-xs text-zinc-400 mt-1">Al culminar la 6.ª sesión, consolidarás lo aprendido desarrollando una aplicación, plano 3D o reporte analítico aplicable a la universidad o el trabajo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diagrama de Estructura de Curso -->
+      <div class="lg:col-span-6">
+        <div class="bg-[#101014] border border-white/15 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+          <h3 class="font-heading text-lg font-bold text-white border-b border-white/10 pb-3 flex items-center justify-between">
+            <span>Estructura Estándar de Curso</span>
+            <span class="text-xs font-bold text-[#4ADE80]">12 Horas Totales</span>
+          </h3>
+
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/5">
+              <div class="w-10 h-10 rounded-xl bg-[#2563EB] text-white font-black flex items-center justify-center text-sm shadow">6</div>
+              <div>
+                <h4 class="text-xs font-bold text-white">Sesiones Virtuales en Vivo</h4>
+                <p class="text-[11px] text-zinc-400">2 horas por sesión mediante Google Meet en días intercalados.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/5">
+              <div class="w-10 h-10 rounded-xl bg-[#22C55E] text-black font-black flex items-center justify-center text-sm shadow">1:1</div>
+              <div>
+                <h4 class="text-xs font-bold text-white">Acompañamiento Directo</h4>
+                <p class="text-[11px] text-zinc-400">Docente presente en todo momento para solucionar consultas en tiempo real.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/5">
+              <div class="w-10 h-10 rounded-xl bg-purple-600 text-white font-black flex items-center justify-center text-sm shadow">0</div>
+              <div>
+                <h4 class="text-xs font-bold text-white">Nivel Básico (Sin Requisitos)</h4>
+                <p class="text-[11px] text-zinc-400">No necesitas conocimientos previos para iniciar en cualquier módulo.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 7. INVERSIÓN, FACILIDADES DE PAGO & PROMOS                   -->
+  <!-- ============================================================ -->
+  <section id="precios" class="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="text-center space-y-3 mb-12">
+      <span class="text-xs font-extrabold text-[#3B82F6] tracking-widest uppercase">Facilidades & Descuentos</span>
+      <h2 class="font-heading text-3xl sm:text-5xl font-black">Inversión Transparente</h2>
+      <p class="text-zinc-400 text-sm max-w-xl mx-auto">
+        Inicia tu formación académica con cuotas cómodas y precios promocionales por apertura.
+      </p>
+    </div>
+
+    <!-- Grid Precios & Modos -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Opción 1: 50% + 50% -->
+      <div class="bg-[#101014] border border-[#2563EB]/40 rounded-3xl p-6 flex flex-col justify-between hover:border-[#2563EB] transition shadow-lg">
+        <div class="space-y-4">
+          <div class="inline-block bg-[#2563EB]/20 text-[#60A5FA] text-[11px] font-extrabold px-3 py-1 rounded-full border border-[#2563EB]/40">
+            Modalidad Recomendada
+          </div>
+          <h3 class="font-heading text-2xl font-black text-white">50% + 50%</h3>
+          <p class="text-xs text-zinc-400">Paga la mitad al matricularte y la otra mitad antes de la 7.ª hora de clase.</p>
+          
+          <div class="border-t border-white/10 pt-4 space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-zinc-400">Promoción Apertura:</span>
+              <strong class="text-[#4ADE80] font-extrabold">S/ 40 + S/ 40</strong>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-zinc-400">Precio Regular:</span>
+              <span class="text-zinc-500 line-through">S/ 50 + S/ 50</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="#catalogo" class="mt-6 block text-center bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold py-3 rounded-xl transition text-xs shadow-md">
+          Elegir esta Modalidad
+        </a>
+      </div>
+
+      <!-- Opción 2: 40% + 30% + 30% -->
+      <div class="bg-[#101014] border border-white/15 rounded-3xl p-6 flex flex-col justify-between hover:border-[#4ADE80]/50 transition">
+        <div class="space-y-4">
+          <div class="inline-block bg-emerald-500/20 text-[#4ADE80] text-[11px] font-bold px-3 py-1 rounded-full border border-emerald-500/30">
+            3 Cuotas Semanales
+          </div>
+          <h3 class="font-heading text-xl font-bold text-white">40% + 30% + 30%</h3>
+          <p class="text-xs text-zinc-400">Dividido en tres cuotas antes de iniciar cada tramo semanal de clases.</p>
+          
+          <div class="border-t border-white/10 pt-4 space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-zinc-400">Precio Total Regular:</span>
+              <strong class="text-white font-bold">S/ 100</strong>
+            </div>
+            <div class="flex justify-between text-xs text-zinc-400">
+              <span>Desglose:</span>
+              <span>S/ 40 + S/ 30 + S/ 30</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="#catalogo" class="mt-6 block text-center bg-white/10 hover:bg-white/20 text-white font-bold py-2.5 rounded-xl transition text-xs">
+          Elegir esta Modalidad
+        </a>
+      </div>
+
+      <!-- Opción 3: 25% x 4 -->
+      <div class="bg-[#101014] border border-white/15 rounded-3xl p-6 flex flex-col justify-between hover:border-amber-500/50 transition">
+        <div class="space-y-4">
+          <div class="inline-block bg-amber-500/20 text-amber-400 text-[11px] font-bold px-3 py-1 rounded-full border border-amber-500/30">
+            Cuotas de S/ 25
+          </div>
+          <h3 class="font-heading text-xl font-bold text-white">25% × 4 Cuotas</h3>
+          <p class="text-xs text-zinc-400">Modalidad para cursos distribuidos en cuatro semanas. Cuotas de S/ 25.</p>
+          
+          <div class="border-t border-white/10 pt-4 space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-zinc-400">Precio Total:</span>
+              <strong class="text-white font-bold">S/ 100</strong>
+            </div>
+            <div class="flex justify-between text-xs text-zinc-400">
+              <span>Cuota Semanal:</span>
+              <span class="text-[#4ADE80] font-bold">S/ 25 por semana</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="#catalogo" class="mt-6 block text-center bg-white/10 hover:bg-white/20 text-white font-bold py-2.5 rounded-xl transition text-xs">
+          Elegir esta Modalidad
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Promociones Especiales -->
+    <div class="mt-12 bg-gradient-to-r from-[#2563EB]/20 via-[#101014] to-emerald-950/40 border border-[#2563EB]/40 rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 shadow-xl">
+      
+      <div class="space-y-2 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-4">
+        <div class="flex items-center gap-2 text-[#3B82F6] font-extrabold text-xs uppercase">
+          <i data-lucide="layers" class="w-4 h-4"></i>
+          <span>Promoción 2 Cursos</span>
+        </div>
+        <h4 class="font-heading text-lg font-bold text-white">S/ 60 <span class="text-xs text-zinc-400 font-normal">por curso en apertura</span></h4>
+        <p class="text-xs text-zinc-400">Lleva 2 cursos por solo S/ 120 durante la convocatoria de apertura (Regular: S/ 160).</p>
+      </div>
+
+      <div class="space-y-2 border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-4">
+        <div class="flex items-center gap-2 text-[#4ADE80] font-extrabold text-xs uppercase">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          <span>Ven con un Amigo</span>
+        </div>
+        <h4 class="font-heading text-lg font-bold text-white">S/ 10 Desc. <span class="text-xs text-zinc-400 font-normal">por persona</span></h4>
+        <p class="text-xs text-zinc-400">Inscríbete junto a un compañero y cada uno recibe S/ 10 de descuento en su matrícula.</p>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-amber-400 font-extrabold text-xs uppercase">
+          <i data-lucide="building-2" class="w-4 h-4"></i>
+          <span>Grupos de 3+</span>
+        </div>
+        <h4 class="font-heading text-lg font-bold text-white">Cotización Especial</h4>
+        <p class="text-xs text-zinc-400">Para grupos institucionales o delegaciones universitarias, contáctanos por WhatsApp.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 8. PLANTA DOCENTE                                           -->
+  <!-- ============================================================ -->
+  <section id="docentes" class="py-20 bg-[#08080B] border-t border-white/10 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center space-y-3 mb-12">
+        <span class="text-xs font-extrabold text-[#4ADE80] tracking-widest uppercase">Equipo Académico</span>
+        <h2 class="font-heading text-3xl sm:text-5xl font-black">Nuestros Docentes</h2>
+        <p class="text-zinc-400 text-sm max-w-xl mx-auto">
+          Profesionales con experiencia aplicativa enfocados en guiar tu aprendizaje paso a paso.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Docente 1 -->
+        <div class="bg-[#101014] border border-white/10 rounded-2xl p-6 text-center space-y-4 hover:border-[#2563EB]/50 transition shadow-lg">
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full mx-auto border-2 border-[#2563EB] shadow-xl shadow-blue-600/20 overflow-hidden bg-[#1A1A1E]">
+            <img src="assets/docente-1.webp" alt="César Bobadilla Medina" class="w-full h-full object-cover object-top">
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-white">César Bobadilla Medina</h3>
+            <p class="text-xs text-[#3B82F6] font-bold">Docente de Programación y Datos</p>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Ingeniero de Sistemas, MBA y candidato a Doctor en Ciencias de la Computación. Docente en TECSUP y Universidad Continental. Especialista en Python, Java, C++, SQL y Ciencia de Datos.
+          </p>
+          <div class="flex flex-wrap justify-center gap-1.5 pt-2 text-[10px]">
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">Python</span>
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">Java</span>
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">C++</span>
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">SQL</span>
+          </div>
+        </div>
+
+        <!-- Docente 2 -->
+        <div class="bg-[#101014] border border-white/10 rounded-2xl p-6 text-center space-y-4 hover:border-[#4ADE80]/50 transition shadow-lg">
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full mx-auto border-2 border-[#4ADE80] shadow-xl shadow-emerald-500/20 overflow-hidden bg-[#1A1A1E]">
+            <img src="assets/docente-2.webp" alt="Erick Telesforo Campos Rimache" class="w-full h-full object-cover object-top">
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-white">Erick Campos Rimache</h3>
+            <p class="text-xs text-[#4ADE80] font-bold">Docente de Diseño e Ingeniería 3D</p>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Bachiller en Ing. Mecánica (UTP), técnico SENATI y Autodesk Certified User. Experto en modelado mecánico, estructuras y planos CAD-CAE en AutoCAD, SolidWorks, Inventor y Fusion 360.
+          </p>
+          <div class="flex flex-wrap justify-center gap-1.5 pt-2 text-[10px]">
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">AutoCAD</span>
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">SolidWorks</span>
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">Inventor</span>
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">Fusion 360</span>
+          </div>
+        </div>
+
+        <!-- Docente 3 -->
+        <div class="bg-[#101014] border border-white/10 rounded-2xl p-6 text-center space-y-4 hover:border-purple-500/50 transition shadow-lg">
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full mx-auto border-2 border-purple-500 shadow-xl shadow-purple-500/20 overflow-hidden bg-[#1A1A1E]">
+            <img src="assets/docente-3.webp" alt="Jeremy Jordans García Flores" class="w-full h-full object-cover object-top">
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-white">Jeremy García Flores</h3>
+            <p class="text-xs text-purple-400 font-bold">Docente de Análisis y Cálculo</p>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Bachiller en Meteorología (UNALM) con maestría en Ciencias Atmosféricas. Investigador en modelamiento y estadística con experiencia en Perú, España y EE. UU. Especialista en Minitab y MATLAB.
+          </p>
+          <div class="flex flex-wrap justify-center gap-1.5 pt-2 text-[10px]">
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">Minitab</span>
+            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-zinc-300">MATLAB</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 9. FOOTER                                                    -->
+  <!-- ============================================================ -->
+  <footer class="bg-[#050505] border-t border-white/10 pt-14 pb-8 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto space-y-10">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <div class="space-y-4 md:col-span-2">
+          <div class="flex items-center">
+            <img src="assets/logo-nav.png" alt="SkillUP" class="h-10 w-auto object-contain">
+          </div>
+          <p class="text-xs text-zinc-400 max-w-md leading-relaxed">
+            Iniciativa educativa orientada a estudiantes, egresados y profesionales que desean fortalecer sus competencias técnicas mediante cursos virtuales en vivo de 12 horas.
+          </p>
+          <p class="text-[11px] text-[#4ADE80] font-bold italic">“Aprende hoy, crea mañana.”</p>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <h4 class="font-bold text-white uppercase tracking-wider">Enlaces Rápidos</h4>
+          <ul class="space-y-2 text-zinc-400">
+            <li><a href="#catalogo" class="hover:text-white transition">Oferta Académica</a></li>
+            <li><a href="#programacion" class="hover:text-white transition">Fechas & Horarios</a></li>
+            <li><a href="#metodologia" class="hover:text-white transition">Modelo Pedagógico</a></li>
+            <li><a href="#precios" class="hover:text-white transition">Facilidades de Pago</a></li>
+            <li><a href="#docentes" class="hover:text-white transition">Planta Docente</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <h4 class="font-bold text-white uppercase tracking-wider">Contacto & Soporte</h4>
+          <p class="text-zinc-400">Atención personalizada por WhatsApp y correo para resolver cualquier consulta académica.</p>
+          <div class="flex items-center gap-2 pt-1 text-zinc-300">
+            <i data-lucide="mail" class="w-4 h-4 text-[#3B82F6]"></i>
+            <span>contacto@skillup.pe</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Enlaces Legales -->
+      <div class="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-zinc-400">
+        <p>© 2026 SkillUP. Todos los derechos reservados.</p>
+        
+        <div class="flex items-center gap-4">
+          <a href="terminos-y-condiciones.html" class="hover:text-white transition">Términos y condiciones</a>
+          <span class="text-white/20">|</span>
+          <a href="politica-de-privacidad.html" class="hover:text-white transition">Política de privacidad</a>
+          <span class="text-white/20">|</span>
+          <a href="libro-de-reclamaciones.html" class="hover:text-white transition flex items-center gap-1.5">
+            <i data-lucide="book-open" class="w-3.5 h-3.5 text-[#3B82F6]"></i>
+            <span>Libro de Reclamaciones</span>
+          </a>
+        </div>
+
+        <button id="open-admin-btn" class="text-[11px] text-zinc-500 hover:text-white transition flex items-center gap-1">
+          <i data-lucide="shield" class="w-3 h-3"></i>
+          <span>Acceso Administrador</span>
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- MODAL DE SÍLABO DETALLADO COMPLETO                           -->
+  <!-- ============================================================ -->
+  <div id="silabo-modal-backdrop" class="fixed inset-0 bg-black/85 z-[80] hidden backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-[#101014] border border-white/20 rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden text-white animate-fadeInUp">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-[#0A0A0E]">
+        <div>
+          <span id="silabo-category-badge" class="text-[10px] font-extrabold text-[#4ADE80] uppercase tracking-wider">Cursos SkillUP</span>
+          <h3 id="silabo-title" class="font-heading text-xl sm:text-2xl font-black text-white">Sílabo de Curso</h3>
+        </div>
+        <button id="close-silabo-btn" class="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto space-y-6 text-xs text-zinc-300">
+        
+        <!-- Info Chips General -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-white/5 border border-white/10 p-3 rounded-xl">
+            <span class="text-zinc-500 text-[10px] block font-bold">DOCENTE</span>
+            <strong id="silabo-docente" class="text-white font-semibold">César Bobadilla</strong>
+          </div>
+          <div class="bg-white/5 border border-white/10 p-3 rounded-xl">
+            <span class="text-zinc-500 text-[10px] block font-bold">DURACIÓN</span>
+            <strong id="silabo-duracion" class="text-white font-semibold">12 horas (6 ses)</strong>
+          </div>
+          <div class="bg-white/5 border border-white/10 p-3 rounded-xl">
+            <span class="text-zinc-500 text-[10px] block font-bold">FECHA INICIO</span>
+            <strong id="silabo-fechas-info" class="text-[#4ADE80] font-bold">18/09/2026</strong>
+          </div>
+          <div class="bg-white/5 border border-white/10 p-3 rounded-xl">
+            <span class="text-zinc-500 text-[10px] block font-bold">HORARIO</span>
+            <strong id="silabo-horario-info" class="text-blue-300 font-semibold">4:00 pm - 6:00 pm</strong>
+          </div>
+        </div>
+
+        <!-- Descripción & Objetivo -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2 bg-white/5 border border-white/10 p-4 rounded-2xl">
+            <h4 class="font-bold text-white text-xs uppercase tracking-wider text-[#3B82F6]">Objetivo General</h4>
+            <p id="silabo-objetivo" class="leading-relaxed text-zinc-300">Objetivo del curso...</p>
+          </div>
+
+          <div class="space-y-2 bg-white/5 border border-white/10 p-4 rounded-2xl">
+            <h4 class="font-bold text-white text-xs uppercase tracking-wider text-[#4ADE80]">Público Objetivo & Requisitos</h4>
+            <p id="silabo-publico" class="leading-relaxed text-zinc-300">Público...</p>
+            <p id="silabo-requisitos" class="text-[11px] text-zinc-400 pt-1 border-t border-white/10 mt-2">Requisitos...</p>
+          </div>
+        </div>
+
+        <!-- Resultados de Aprendizaje -->
+        <div class="space-y-2">
+          <h4 class="font-bold text-white text-xs uppercase tracking-wider">Resultados de Aprendizaje</h4>
+          <ul id="silabo-resultados-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-300">
+            <!-- Inyectado por JS -->
+          </ul>
+        </div>
+
+        <!-- Tabla de 6 Sesiones Oficial (Páginas 11-30 PDF) -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-white text-sm flex items-center justify-between">
+            <span>Contenido Programático por Sesión (6 Sesiones)</span>
+            <span class="text-[10px] text-[#4ADE80] font-bold">30% Explicación / 70% Práctica</span>
+          </h4>
+
+          <div class="border border-white/10 rounded-xl overflow-hidden bg-[#18181F]">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#101014] text-zinc-300 font-bold border-b border-white/10">
+                <tr>
+                  <th class="p-3 w-12 text-center">N.°</th>
+                  <th class="p-3 w-1/4">Tema</th>
+                  <th class="p-3">Contenido</th>
+                  <th class="p-3 w-1/3">Aplicación Práctica</th>
+                </tr>
+              </thead>
+              <tbody id="silabo-sessions-container" class="divide-y divide-white/10 text-zinc-300">
+                <!-- Inyectado dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Evaluación y Producto Final -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div class="p-3.5 bg-white/5 border border-white/10 rounded-xl">
+            <span class="text-zinc-400 font-bold block text-[10px] uppercase">Evaluación</span>
+            <p id="silabo-evaluacion" class="text-zinc-300 mt-1">Evaluación guiada durante las clases.</p>
+          </div>
+          <div class="p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
+            <span class="text-[#4ADE80] font-bold block text-[10px] uppercase">Producto Final</span>
+            <p id="silabo-producto-final" class="text-zinc-200 mt-1 font-semibold">Mini proyecto integrador.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 border-t border-white/10 bg-[#0A0A0E] flex flex-wrap items-center justify-between gap-3">
+        <button id="silabo-enroll-btn" class="w-full sm:w-auto bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold px-6 py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg">
+          <i data-lucide="check-circle" class="w-4 h-4 text-[#4ADE80]"></i>
+          <span>Inscribirme en este Curso (S/ 80)</span>
+        </button>
+        <button id="close-silabo-btn-2" class="w-full sm:w-auto text-zinc-400 hover:text-white px-4 py-2 transition text-xs text-center">
+          Cerrar Sílabo
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL DE PREINSCRIPCIÓN / SELECCIÓN DE CURSOS               -->
+  <!-- ============================================================ -->
+  <div id="cart-backdrop" class="fixed inset-0 bg-black/80 z-[80] hidden backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-[#101014] border border-white/20 rounded-3xl w-full max-w-lg max-h-[90vh] flex flex-col shadow-2xl overflow-hidden text-white animate-fadeInUp">
+      
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-[#0A0A0E]">
+        <div class="flex items-center gap-2">
+          <i data-lucide="book-marked" class="w-5 h-5 text-[#4ADE80]"></i>
+          <h3 class="font-heading text-lg font-bold text-white">Mi Selección de Cursos</h3>
+        </div>
+        <button id="close-cart-btn" class="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs">
+        
+        <div id="cart-items-container" class="space-y-3">
+          <!-- Inyectado con JS -->
+        </div>
+
+        <!-- Selección de Modalidad de Pago -->
+        <div class="pt-4 border-t border-white/10 space-y-2">
+          <label class="font-bold text-white block">Selecciona tu Modalidad de Pago:</label>
+          <select id="pago-modalidad-select" class="w-full bg-[#18181F] border border-white/20 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#2563EB]">
+            <option value="50%+50%">50% + 50% (S/ 40 al inicio + S/ 40 antes de la 7.ª hora)</option>
+            <option value="40%+30%+30%">40% + 30% + 30% (3 cuotas semanales)</option>
+            <option value="25%x4">25% × 4 cuotas (S/ 25 por semana)</option>
+            <option value="Promoción 2 Cursos">Promoción 2 Cursos (S/ 60 c/u en apertura)</option>
+            <option value="Ven con un amigo">Ven con un amigo (S/ 10 descuento c/u)</option>
+          </select>
+        </div>
+
+        <div class="pt-2 border-t border-white/10 flex items-center justify-between text-sm font-bold">
+          <span>Inversión Total Estimada:</span>
+          <span id="cart-total-price" class="text-[#4ADE80] text-lg font-black">S/ 0</span>
+        </div>
+
+      </div>
+
+      <div class="px-6 py-4 border-t border-white/10 bg-[#0A0A0E]">
+        <button id="send-whatsapp-order-btn" class="w-full bg-[#22C55E] hover:bg-[#4ADE80] text-black font-extrabold py-3.5 rounded-xl transition text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
+          <i data-lucide="message-circle" class="w-5 h-5 fill-black"></i>
+          <span>Enviar Preinscripción por WhatsApp</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PANEL ADMINISTRATIVO DIRECTO (MODAL FLOTANTE & PLANIFICADOR) -->
+  <!-- ============================================================ -->
+  <div id="admin-backdrop" class="fixed inset-0 bg-black/85 z-[90] hidden backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div id="admin-panel" class="bg-[#101014] border border-white/20 rounded-2xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-fadeInUp text-white">
+      
+      <div class="px-5 py-4 border-b border-white/10 flex items-center justify-between bg-[#0A0A0E]">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-white">
+            <i data-lucide="sliders" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-heading text-base sm:text-lg text-white font-bold">Panel de Gestión & Planificación SkillUP</h3>
+            <p class="text-[11px] text-zinc-400">Planifica fechas, horarios y administra precios en tiempo real</p>
+          </div>
+        </div>
+        <button id="admin-close-btn" class="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Pantalla Login -->
+      <div id="admin-login-screen" class="p-8 text-center space-y-4 max-w-md mx-auto my-auto">
+        <div class="w-12 h-12 rounded-full bg-[#2563EB]/20 text-[#3B82F6] flex items-center justify-center mx-auto border border-[#2563EB]/30">
+          <i data-lucide="lock" class="w-6 h-6"></i>
+        </div>
+        <h4 class="font-bold text-base text-white">Clave de Acceso Administrador</h4>
+        <input type="password" id="admin-pass-input" placeholder="Ingresa tu clave" 
+               class="w-full bg-[#18181F] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-center text-white focus:outline-none focus:border-[#2563EB]">
+        <button id="admin-login-submit" class="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold py-2.5 rounded-xl transition text-xs uppercase">
+          Ingresar al Panel
+        </button>
+      </div>
+
+      <!-- Contenido Admin -->
+      <div id="admin-dashboard" class="hidden flex-1 flex flex-col overflow-hidden p-6 space-y-6">
+        
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+          <div>
+            <h4 class="font-bold text-white text-sm">Programación de Fechas & Catálogo</h4>
+            <p class="text-xs text-zinc-400">Modifica fechas de inicio/fin, días de clase, horarios y precios (Punto 10 del Plan).</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="admin-download-config-btn" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow">
+              <i data-lucide="download" class="w-4 h-4"></i> Guardar y Descargar config.js
+            </button>
+          </div>
+        </div>
+
+        <div id="admin-products-list" class="flex-1 overflow-y-auto space-y-3 pr-1">
+          <!-- Inyectado por JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL DE PLANIFICACIÓN DE FECHAS DE CURSO (ADMIN DASHBOARD SIMPLE) -->
+  <div id="admin-form-backdrop" class="fixed inset-0 bg-black/90 z-[100] hidden backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-[#101014] border border-white/20 rounded-2xl w-full max-w-xl p-6 space-y-4 text-white">
+      <h3 id="admin-form-title" class="font-bold text-base text-white">Planificar Fechas & Horario de Curso</h3>
+      <input type="hidden" id="prod-id">
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="text-zinc-400 block mb-1 font-bold">Nombre del Curso</label>
+          <input type="text" id="prod-name" readonly class="w-full bg-[#18181F] border border-white/10 rounded-lg p-2.5 text-zinc-300 font-bold">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-[#4ADE80] block mb-1 font-bold">Fecha de Inicio *</label>
+            <input type="text" id="prod-fecha-inicio" placeholder="ej: 18/09/2026" class="w-full bg-[#18181F] border border-white/20 rounded-lg p-2.5 text-white font-medium">
+          </div>
+          <div>
+            <label class="text-[#4ADE80] block mb-1 font-bold">Fecha de Finalización *</label>
+            <input type="text" id="prod-fecha-fin" placeholder="ej: 27/09/2026" class="w-full bg-[#18181F] border border-white/20 rounded-lg p-2.5 text-white font-medium">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-zinc-400 block mb-1 font-bold">Días de Clase *</label>
+            <input type="text" id="prod-dias" placeholder="ej: Viernes, sábado y domingo" class="w-full bg-[#18181F] border border-white/20 rounded-lg p-2.5 text-white font-medium">
+          </div>
+          <div>
+            <label class="text-zinc-400 block mb-1 font-bold">Horario de Clase *</label>
+            <input type="text" id="prod-horario" placeholder="ej: 4:00 p. m. – 6:00 p. m." class="w-full bg-[#18181F] border border-white/20 rounded-lg p-2.5 text-white font-medium">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-zinc-400 block mb-1 font-bold">Estado del Grupo</label>
+            <select id="prod-estado" class="w-full bg-[#18181F] border border-white/20 rounded-lg p-2.5 text-white font-medium">
+              <option value="Inscripciones Abiertas">Inscripciones Abiertas</option>
+              <option value="Próxima Edición">Próxima Edición</option>
+              <option value="Grupo Confirmado">Grupo Confirmado</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-zinc-400 block mb-1 font-bold">Precio Apertura (S/)</label>
+            <input type="number" id="prod-price" class="w-full bg-[#18181F] border border-white/20 rounded-lg p-2.5 text-white font-medium">
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 pt-2">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="prod-available" class="rounded">
+            <span>Visible en la web</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="prod-featured" class="rounded">
+            <span>Destacado</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-4 border-t border-white/10">
+        <button id="admin-form-cancel" class="px-4 py-2 text-xs text-zinc-400 hover:text-white">Cancelar</button>
+        <button id="admin-form-save" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow">Guardar Planificación</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICACIÓN -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
