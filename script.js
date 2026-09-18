@@ -495,7 +495,7 @@ function initAdminPanel() {
 
 function checkAdminPass() {
   const pass = document.getElementById('admin-pass-input').value;
-  if (pass === 'admin' || pass === 'skillup2026' || pass === '1234') {
+  if (pass === 'admin31416' || pass === 'admin' || pass === 'skillup2026' || pass === '1234') {
     isAdminAuthed = true;
     document.getElementById('admin-login-screen').classList.add('hidden');
     document.getElementById('admin-dashboard').classList.remove('hidden');
@@ -729,34 +729,29 @@ function renderCertificateCanvas() {
 
   // 4. Logo Oficial SkillUP en Encabezado
   if (certLogoImg.complete && certLogoImg.naturalWidth > 0) {
-    const logoW = 250;
+    const logoW = 240;
     const logoH = (certLogoImg.naturalHeight / certLogoImg.naturalWidth) * logoW;
-    ctx.drawImage(certLogoImg, 600 - (logoW / 2), 65, logoW, logoH);
+    ctx.drawImage(certLogoImg, 600 - (logoW / 2), 70, logoW, logoH);
   } else {
     ctx.textAlign = 'center';
     ctx.font = '900 44px sans-serif';
     ctx.fillStyle = '#2563EB';
-    ctx.fillText('SKILLUP', 600, 110);
+    ctx.fillText('SKILLUP', 600, 105);
   }
 
-  // Sub-header
-  ctx.textAlign = 'center';
-  ctx.font = '700 13px sans-serif';
-  ctx.fillStyle = '#16A34A';
-  ctx.fillText('ACADEMIA VIRTUAL DE ALTA ESPECIALIZACIÓN', 600, 155);
-
-  // Línea divisora
+  // Línea divisora elegante con amplio espaciado
   ctx.beginPath();
-  ctx.moveTo(420, 172);
-  ctx.lineTo(780, 172);
+  ctx.moveTo(430, 148);
+  ctx.lineTo(770, 148);
   ctx.strokeStyle = '#E5E7EB';
   ctx.lineWidth = 1.5;
   ctx.stroke();
 
   // 5. Título Principal: "CERTIFICADO DE APROBACIÓN"
+  ctx.textAlign = 'center';
   ctx.font = '800 32px Georgia, serif';
   ctx.fillStyle = '#1E3A8A';
-  ctx.fillText('CERTIFICADO DE APROBACIÓN', 600, 220);
+  ctx.fillText('CERTIFICADO DE APROBACIÓN', 600, 205);
 
   // Subtítulo
   ctx.font = '400 15px sans-serif';
