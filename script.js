@@ -613,6 +613,14 @@ const PRODUCTOS = ${JSON.stringify(productosMemoria, null, 2)};
 /* ============================================================
    GENERADOR DE CERTIFICADOS EN IMAGEN HD (CANVAS 2D)
    ============================================================ */
+let certLogoImg = new Image();
+certLogoImg.src = 'assets/logo-cert.png';
+certLogoImg.onload = () => {
+  if (typeof renderCertificateCanvas === 'function') {
+    renderCertificateCanvas();
+  }
+};
+
 function initCertificateGenerator() {
   const selectCourse = document.getElementById('cert-course-select');
   const inputStudent = document.getElementById('cert-student-name');
@@ -677,31 +685,27 @@ function renderCertificateCanvas() {
   const teacherInput = document.getElementById('cert-teacher-name');
   if (teacherInput) teacherInput.value = teacherName;
 
-  // 1. Fondo elegante oscuro luxury
-  const gradient = ctx.createLinearGradient(0, 0, 1200, 850);
-  gradient.addColorStop(0, '#0B0F19');
-  gradient.addColorStop(0.5, '#111827');
-  gradient.addColorStop(1, '#05070D');
-  ctx.fillStyle = gradient;
+  // 1. Fondo Blanco Elegante
+  ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(0, 0, 1200, 850);
 
-  // 2. Borde exterior (Gradiente Royal Blue & Lime)
+  // 2. Marco Exterior Doble (Azul Real & Verde Lima)
   const borderGrad = ctx.createLinearGradient(0, 0, 1200, 850);
   borderGrad.addColorStop(0, '#2563EB');
-  borderGrad.addColorStop(0.5, '#4ADE80');
+  borderGrad.addColorStop(0.5, '#16A34A');
   borderGrad.addColorStop(1, '#2563EB');
 
   ctx.strokeStyle = borderGrad;
-  ctx.lineWidth = 12;
+  ctx.lineWidth = 14;
   ctx.strokeRect(30, 30, 1140, 790);
 
-  // 3. Marco dorado interno
-  ctx.strokeStyle = '#FACC15';
+  // 3. Marco Dorado Interno Elegante
+  ctx.strokeStyle = '#D97706';
   ctx.lineWidth = 2;
   ctx.strokeRect(45, 45, 1110, 760);
 
-  // Esquinas ornamentales
-  ctx.fillStyle = '#4ADE80';
+  // Esquinas ornamentales cuadradas
+  ctx.fillStyle = '#16A34A';
   ctx.fillRect(40, 40, 30, 4);
   ctx.fillRect(40, 40, 4, 30);
   ctx.fillRect(1130, 40, 30, 4);
@@ -711,118 +715,125 @@ function renderCertificateCanvas() {
   ctx.fillRect(1130, 806, 30, 4);
   ctx.fillRect(1156, 780, 4, 30);
 
-  // 4. Encabezado Marca: "SKILLUP"
-  ctx.textAlign = 'center';
-  ctx.font = '900 42px sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText('SKILLUP', 600, 120);
+  // 4. Logo Oficial SkillUP en Encabezado
+  if (certLogoImg.complete && certLogoImg.naturalWidth > 0) {
+    const logoW = 250;
+    const logoH = (certLogoImg.naturalHeight / certLogoImg.naturalWidth) * logoW;
+    ctx.drawImage(certLogoImg, 600 - (logoW / 2), 65, logoW, logoH);
+  } else {
+    ctx.textAlign = 'center';
+    ctx.font = '900 44px sans-serif';
+    ctx.fillStyle = '#2563EB';
+    ctx.fillText('SKILLUP', 600, 110);
+  }
 
   // Sub-header
-  ctx.font = '600 13px sans-serif';
-  ctx.fillStyle = '#4ADE80';
-  ctx.fillText('ACADEMIA VIRTUAL DE ALTA ESPECIALIZACIÓN', 600, 145);
+  ctx.textAlign = 'center';
+  ctx.font = '700 13px sans-serif';
+  ctx.fillStyle = '#16A34A';
+  ctx.fillText('ACADEMIA VIRTUAL DE ALTA ESPECIALIZACIÓN', 600, 155);
 
   // Línea divisora
   ctx.beginPath();
-  ctx.moveTo(450, 165);
-  ctx.lineTo(750, 165);
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-  ctx.lineWidth = 1;
+  ctx.moveTo(420, 172);
+  ctx.lineTo(780, 172);
+  ctx.strokeStyle = '#E5E7EB';
+  ctx.lineWidth = 1.5;
   ctx.stroke();
 
   // 5. Título Principal: "CERTIFICADO DE APROBACIÓN"
   ctx.font = '800 32px Georgia, serif';
-  ctx.fillStyle = '#FACC15';
+  ctx.fillStyle = '#1E3A8A';
   ctx.fillText('CERTIFICADO DE APROBACIÓN', 600, 220);
 
   // Subtítulo
   ctx.font = '400 15px sans-serif';
-  ctx.fillStyle = '#9CA3AF';
-  ctx.fillText('El Centro de Capacitación y Alta Especialización SkillUP otorga el presente reconocimiento a:', 600, 270);
+  ctx.fillStyle = '#4B5563';
+  ctx.fillText('El Centro de Capacitación y Alta Especialización SkillUP otorga el presente reconocimiento a:', 600, 265);
 
   // 6. Nombre del Alumno
   ctx.font = '900 38px sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText(studentName.toUpperCase(), 600, 340);
+  ctx.fillStyle = '#0F172A';
+  ctx.fillText(studentName.toUpperCase(), 600, 335);
 
   // Línea verde under name
   ctx.beginPath();
-  ctx.moveTo(300, 360);
-  ctx.lineTo(900, 360);
-  ctx.strokeStyle = '#4ADE80';
+  ctx.moveTo(300, 355);
+  ctx.lineTo(900, 355);
+  ctx.strokeStyle = '#16A34A';
   ctx.lineWidth = 3;
   ctx.stroke();
 
   // 7. Texto del logro
   ctx.font = '400 16px sans-serif';
-  ctx.fillStyle = '#D1D5DB';
-  ctx.fillText('Por haber cumplido y aprobado satisfactoriamente el curso virtual en vivo de 12 horas pedagógicas:', 600, 415);
+  ctx.fillStyle = '#374151';
+  ctx.fillText('Por haber cumplido y aprobado satisfactoriamente el curso virtual en vivo de 12 horas pedagógicas:', 600, 410);
 
   // Nombre del Curso
   ctx.font = '900 34px sans-serif';
-  ctx.fillStyle = '#3B82F6';
-  ctx.fillText(`“ ${course.nombre} ”`, 600, 475);
+  ctx.fillStyle = '#2563EB';
+  ctx.fillText(`“ ${course.nombre} ”`, 600, 470);
 
   // Detalle adicional
   ctx.font = '500 14px sans-serif';
-  ctx.fillStyle = '#9CA3AF';
-  ctx.fillText(`Desarrollado en modalidad en vivo con evaluación continua y proyecto aplicativo final.`, 600, 520);
+  ctx.fillStyle = '#6B7280';
+  ctx.fillText(`Desarrollado en modalidad en vivo con evaluación continua y proyecto aplicativo final.`, 600, 515);
 
   // Fecha y Lugar
-  ctx.font = '500 14px sans-serif';
-  ctx.fillStyle = '#E5E7EB';
-  ctx.fillText(`Lima, Perú — ${certDate}`, 600, 570);
+  ctx.font = '600 14px sans-serif';
+  ctx.fillStyle = '#1F2937';
+  ctx.fillText(`Lima, Perú — ${certDate}`, 600, 565);
 
   // 8. Firmas
   // Izquierda: Docente
   ctx.beginPath();
-  ctx.moveTo(250, 680);
-  ctx.lineTo(470, 680);
-  ctx.strokeStyle = '#6B7280';
-  ctx.lineWidth = 1;
+  ctx.moveTo(240, 675);
+  ctx.lineTo(480, 675);
+  ctx.strokeStyle = '#9CA3AF';
+  ctx.lineWidth = 1.5;
   ctx.stroke();
 
   ctx.font = '700 14px sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText(teacherName, 360, 705);
+  ctx.fillStyle = '#1F2937';
+  ctx.fillText(teacherName, 360, 700);
   ctx.font = '400 12px sans-serif';
-  ctx.fillStyle = '#9CA3AF';
-  ctx.fillText('Docente Instructor del Curso', 360, 725);
+  ctx.fillStyle = '#6B7280';
+  ctx.fillText('Docente Instructor del Curso', 360, 720);
 
   // Derecha: Dirección Académica
   ctx.beginPath();
-  ctx.moveTo(730, 680);
-  ctx.lineTo(950, 680);
-  ctx.strokeStyle = '#6B7280';
-  ctx.lineWidth = 1;
+  ctx.moveTo(720, 675);
+  ctx.lineTo(960, 675);
+  ctx.strokeStyle = '#9CA3AF';
+  ctx.lineWidth = 1.5;
   ctx.stroke();
 
   ctx.font = '700 14px sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText('SkillUP Educación S.A.C.', 840, 705);
+  ctx.fillStyle = '#1F2937';
+  ctx.fillText('SkillUP Educación S.A.C.', 840, 700);
   ctx.font = '400 12px sans-serif';
-  ctx.fillStyle = '#9CA3AF';
-  ctx.fillText('Dirección de Certificación Académica', 840, 725);
+  ctx.fillStyle = '#6B7280';
+  ctx.fillText('Dirección de Certificación Académica', 840, 720);
 
   // Sello Central Insignia
   ctx.save();
   ctx.beginPath();
-  ctx.arc(600, 675, 42, 0, Math.PI * 2);
-  ctx.fillStyle = '#10172A';
+  ctx.arc(600, 670, 42, 0, Math.PI * 2);
+  ctx.fillStyle = '#FFFFFF';
   ctx.fill();
-  ctx.strokeStyle = '#FACC15';
+  ctx.strokeStyle = '#D97706';
   ctx.lineWidth = 3;
   ctx.stroke();
 
   ctx.font = '800 10px sans-serif';
-  ctx.fillStyle = '#FACC15';
-  ctx.fillText('EXCELENCIA', 600, 665);
+  ctx.fillStyle = '#D97706';
+  ctx.fillText('EXCELENCIA', 600, 660);
   ctx.font = '900 16px sans-serif';
-  ctx.fillStyle = '#4ADE80';
-  ctx.fillText('12 HRS', 600, 682);
+  ctx.fillStyle = '#16A34A';
+  ctx.fillText('12 HRS', 600, 677);
   ctx.font = '700 9px sans-serif';
-  ctx.fillStyle = '#9CA3AF';
-  ctx.fillText('VERIFICADO', 600, 696);
+  ctx.fillStyle = '#2563EB';
+  ctx.fillText('VERIFICADO', 600, 691);
   ctx.restore();
 
   // 9. Pie de página: Código de Verificación y Web
