@@ -11,11 +11,11 @@ const CONFIG = {
   razonSocial:          "SkillUP Educación Virtual S.A.C.",
   ruc:                  "20789456123",
   direccion:            "Lima, Perú",
-  correo:               "contacto@skillup.pe",
-  whatsapp:             "51999999999",
+  correo:               "skillup1102@gmail.com",
+  whatsapp:             "51986416703",
+  facebook:             "https://www.facebook.com/profile.php?id=61578189016019",
+  tiktok:               "https://www.tiktok.com/@skillup.cursos?is_from_webapp=1&sender_device=pc",
   horarios:             "Atención en vivo: Lun - Sáb · 9am - 8pm",
-  instagram:            "@skillup.pe",
-  tiktok:               "@skillup.pe",
   moneda:               "S/",
 
   // Precios base
@@ -33,8 +33,6 @@ const CONFIG = {
 
 // ============================================================
 //  CATÁLOGO Y PROGRAMACIÓN DE CURSOS SKILLUP
-//  Estructura: 12 horas totales (6 sesiones de 2 horas)
-//  Metodología: 30% explicación / 70% práctica
 // ============================================================
 
 const PRODUCTOS = [
@@ -46,7 +44,7 @@ const PRODUCTOS = [
     categoria: "Programación y datos",
     precio: 80,
     precioRegular: 100,
-    docente: "César Bobadilla",
+    docente: "César Bobadilla Medina",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -65,7 +63,6 @@ const PRODUCTOS = [
     productoFinal: "Ejercicio o mini proyecto que integre los contenidos desarrollados durante el curso.",
     disponible: "SI",
     destacado: "SI",
-    // Programación Operativa
     fechaInicio: "18/09/2026",
     fechaFin: "27/09/2026",
     diasClase: "Viernes, sábado y domingo",
@@ -86,7 +83,7 @@ const PRODUCTOS = [
     categoria: "Programación y datos",
     precio: 80,
     precioRegular: 100,
-    docente: "César Bobadilla",
+    docente: "César Bobadilla Medina",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -105,7 +102,6 @@ const PRODUCTOS = [
     productoFinal: "Ejercicio o mini proyecto que integre los contenidos desarrollados durante el curso.",
     disponible: "SI",
     destacado: "SI",
-    // Programación Operativa
     fechaInicio: "18/09/2026",
     fechaFin: "27/09/2026",
     diasClase: "Viernes, sábado y domingo",
@@ -126,7 +122,7 @@ const PRODUCTOS = [
     categoria: "Programación y datos",
     precio: 80,
     precioRegular: 100,
-    docente: "César Bobadilla",
+    docente: "César Bobadilla Medina",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -145,7 +141,6 @@ const PRODUCTOS = [
     productoFinal: "Ejercicio o mini proyecto que integre los contenidos desarrollados durante el curso.",
     disponible: "SI",
     destacado: "NO",
-    // Programación Operativa
     fechaInicio: "28/09/2026",
     fechaFin: "07/10/2026",
     diasClase: "Lunes, martes y miércoles",
@@ -166,7 +161,7 @@ const PRODUCTOS = [
     categoria: "Programación y datos",
     precio: 80,
     precioRegular: 100,
-    docente: "César Bobadilla",
+    docente: "César Bobadilla Medina",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -185,7 +180,6 @@ const PRODUCTOS = [
     productoFinal: "Ejercicio o mini proyecto que integre los contenidos desarrollados durante el curso.",
     disponible: "SI",
     destacado: "SI",
-    // Programación Operativa
     fechaInicio: "02/10/2026",
     fechaFin: "11/10/2026",
     diasClase: "Viernes, sábado y domingo",
@@ -208,7 +202,7 @@ const PRODUCTOS = [
     categoria: "Diseño e ingeniería",
     precio: 80,
     precioRegular: 100,
-    docente: "Erick Campos",
+    docente: "Erick Campos Rimache",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -227,7 +221,6 @@ const PRODUCTOS = [
     productoFinal: "Modelo, plano o ejercicio técnico que integre las herramientas desarrolladas durante el curso.",
     disponible: "SI",
     destacado: "SI",
-    // Programación Operativa
     fechaInicio: "17/09/2026",
     fechaFin: "27/09/2026",
     diasClase: "Jueves, viernes y domingo",
@@ -248,7 +241,7 @@ const PRODUCTOS = [
     categoria: "Diseño e ingeniería",
     precio: 80,
     precioRegular: 100,
-    docente: "Erick Campos",
+    docente: "Erick Campos Rimache",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -267,7 +260,6 @@ const PRODUCTOS = [
     productoFinal: "Modelo, plano o ejercicio técnico que integre las herramientas desarrolladas durante el curso.",
     disponible: "SI",
     destacado: "SI",
-    // Programación Operativa
     fechaInicio: "14/09/2026",
     fechaFin: "23/09/2026",
     diasClase: "Lunes, martes y miércoles",
@@ -288,7 +280,7 @@ const PRODUCTOS = [
     categoria: "Diseño e ingeniería",
     precio: 80,
     precioRegular: 100,
-    docente: "Erick Campos",
+    docente: "Erick Campos Rimache",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -307,7 +299,6 @@ const PRODUCTOS = [
     productoFinal: "Modelo, plano o ejercicio técnico que integre las herramientas desarrolladas durante el curso.",
     disponible: "SI",
     destacado: "NO",
-    // Programación Operativa
     fechaInicio: "17/09/2026",
     fechaFin: "27/09/2026",
     diasClase: "Jueves, viernes y domingo",
@@ -328,7 +319,7 @@ const PRODUCTOS = [
     categoria: "Diseño e ingeniería",
     precio: 80,
     precioRegular: 100,
-    docente: "Erick Campos",
+    docente: "Erick Campos Rimache",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -347,7 +338,6 @@ const PRODUCTOS = [
     productoFinal: "Modelo, plano o ejercicio técnico que integre las herramientas desarrolladas durante el curso.",
     disponible: "SI",
     destacado: "SI",
-    // Programación Operativa
     fechaInicio: "01/10/2026",
     fechaFin: "11/10/2026",
     diasClase: "Jueves, viernes y domingo",
@@ -370,7 +360,7 @@ const PRODUCTOS = [
     categoria: "Análisis y cálculo",
     precio: 80,
     precioRegular: 100,
-    docente: "Jeremy García",
+    docente: "Jeremy García Flores",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -389,7 +379,6 @@ const PRODUCTOS = [
     productoFinal: "Análisis estadístico básico de una base de datos con gráficos, resultados e interpretación.",
     disponible: "SI",
     destacado: "SI",
-    // Programación Operativa
     fechaInicio: "18/09/2026",
     fechaFin: "27/09/2026",
     diasClase: "Viernes, sábado y domingo",
@@ -410,7 +399,7 @@ const PRODUCTOS = [
     categoria: "Análisis y cálculo",
     precio: 80,
     precioRegular: 100,
-    docente: "Jeremy García",
+    docente: "Jeremy García Flores",
     duracion: "12 horas · 6 sesiones",
     modalidad: "Virtual en vivo (Google Meet)",
     nivel: "Básico",
@@ -429,7 +418,6 @@ const PRODUCTOS = [
     productoFinal: "Programa sencillo que resuelva un problema aplicado y presente resultados mediante gráficos.",
     disponible: "SI",
     destacado: "SI",
-    // Programación Operativa
     fechaInicio: "02/10/2026",
     fechaFin: "11/10/2026",
     diasClase: "Viernes, sábado y domingo",

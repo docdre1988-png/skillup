@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSilaboModal();
   initMobileMenu();
   initAdminPanel();
+  initCertificateGenerator();
 
   renderCatalogo('todos');
   renderScheduleTable();
@@ -449,6 +450,29 @@ function initAdminPanel() {
   // Login
   document.getElementById('admin-login-submit')?.addEventListener('click', checkAdminPass);
 
+  // Tabs Switcher
+  const tabFechasBtn = document.getElementById('tab-fechas-btn');
+  const tabCertsBtn  = document.getElementById('tab-certificados-btn');
+  const secFechas    = document.getElementById('admin-sec-fechas');
+  const secCerts     = document.getElementById('admin-sec-certificados');
+
+  if (tabFechasBtn && tabCertsBtn) {
+    tabFechasBtn.addEventListener('click', () => {
+      tabFechasBtn.className = 'py-3 text-xs font-bold border-b-2 border-[#2563EB] text-white flex items-center gap-2';
+      tabCertsBtn.className = 'py-3 text-xs font-bold border-b-2 border-transparent text-zinc-400 hover:text-white flex items-center gap-2 transition';
+      secFechas?.classList.remove('hidden');
+      secCerts?.classList.add('hidden');
+    });
+
+    tabCertsBtn.addEventListener('click', () => {
+      tabCertsBtn.className = 'py-3 text-xs font-bold border-b-2 border-[#2563EB] text-white flex items-center gap-2';
+      tabFechasBtn.className = 'py-3 text-xs font-bold border-b-2 border-transparent text-zinc-400 hover:text-white flex items-center gap-2 transition';
+      secCerts?.classList.remove('hidden');
+      secFechas?.classList.add('hidden');
+      renderCertificateCanvas();
+    });
+  }
+
   // Form
   document.getElementById('admin-form-cancel')?.addEventListener('click', () => {
     document.getElementById('admin-form-backdrop').classList.add('hidden');
@@ -464,6 +488,7 @@ function checkAdminPass() {
     document.getElementById('admin-login-screen').classList.add('hidden');
     document.getElementById('admin-dashboard').classList.remove('hidden');
     renderAdminProductsList();
+    renderCertificateCanvas();
     showToast('🔓 Sesión de administración iniciada');
   } else {
     showToast('❌ Clave incorrecta');
@@ -557,10 +582,10 @@ const CONFIG = {
   ruc:                  "${CONFIG.ruc || '20789456123'}",
   direccion:            "${CONFIG.direccion || 'Lima, Perú'}",
   correo:               "${CONFIG.correo || 'contacto@skillup.pe'}",
-  whatsapp:             "${CONFIG.whatsapp || '51999999999'}",
+  whatsapp:             "${CONFIG.whatsapp || '51986416703'}",
   horarios:             "${CONFIG.horarios || 'Atención en vivo: Lun - Sáb · 9am - 8pm'}",
-  instagram:            "${CONFIG.instagram || '@skillup.pe'}",
-  tiktok:               "${CONFIG.tiktok || '@skillup.pe'}",
+  facebook:             "${CONFIG.facebook || 'https://www.facebook.com/profile.php?id=61578189016019'}",
+  tiktok:               "${CONFIG.tiktok || 'https://www.tiktok.com/@skillup.cursos?is_from_webapp=1&sender_device=pc'}",
   moneda:               "${CONFIG.moneda || 'S/'}",
   precioRegular:        100,
   precioApertura:       80,
@@ -586,6 +611,266 @@ const PRODUCTOS = ${JSON.stringify(productosMemoria, null, 2)};
 }
 
 /* ============================================================
+   GENERADOR DE CERTIFICADOS EN IMAGEN HD (CANVAS 2D)
+   ============================================================ */
+function initCertificateGenerator() {
+  const selectCourse = document.getElementById('cert-course-select');
+  const inputStudent = document.getElementById('cert-student-name');
+  const inputDate    = document.getElementById('cert-date-input');
+  const btnDownload  = document.getElementById('btn-generate-cert-png');
+  const btnShareWs   = document.getElementById('btn-share-cert-ws');
+
+  if (!selectCourse) return;
+
+  // Llenar select de cursos
+  selectCourse.innerHTML = productosMemoria.map(p => `
+    <option value="${p.id}">${p.nombre} (${p.docente || 'Docente'})</option>
+  `).join('');
+
+  // Valores iniciales por defecto
+  if (inputDate && !inputDate.value) {
+    inputDate.value = "27 de Septiembre de 2026";
+  }
+  
+  if (inputStudent && !inputStudent.value) {
+    inputStudent.value = "Juan Carlos Pérez López";
+  }
+
+  generarNuevoCodigoCertificado();
+
+  // Listeners de actualización en tiempo real
+  selectCourse.addEventListener('change', () => {
+    generarNuevoCodigoCertificado();
+    renderCertificateCanvas();
+  });
+  inputStudent?.addEventListener('input', renderCertificateCanvas);
+  inputDate?.addEventListener('input', renderCertificateCanvas);
+
+  btnDownload?.addEventListener('click', descargarCertificadoPNG);
+  btnShareWs?.addEventListener('click', compartirCertificadoWhatsApp);
+
+  // Primer renderizado
+  renderCertificateCanvas();
+}
+
+function generarNuevoCodigoCertificado() {
+  const codeInput = document.getElementById('cert-code-input');
+  if (!codeInput) return;
+  const randomNum = Math.floor(10000 + Math.random() * 90000);
+  codeInput.value = `SKILLUP-2026-${randomNum}`;
+}
+
+function renderCertificateCanvas() {
+  const canvas = document.getElementById('cert-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const studentName = document.getElementById('cert-student-name')?.value.trim() || "Nombres y Apellidos del Alumno";
+  const courseId = parseInt(document.getElementById('cert-course-select')?.value) || 1;
+  const course = productosMemoria.find(c => c.id === courseId) || productosMemoria[0] || { nombre: "Python desde Cero", docente: "César Bobadilla Medina" };
+  const teacherName = course.docente || "César Bobadilla Medina";
+  const certDate = document.getElementById('cert-date-input')?.value.trim() || "27 de Septiembre de 2026";
+  const certCode = document.getElementById('cert-code-input')?.value.trim() || "SKILLUP-2026-89421";
+
+  // Actualizar input de docente
+  const teacherInput = document.getElementById('cert-teacher-name');
+  if (teacherInput) teacherInput.value = teacherName;
+
+  // 1. Fondo elegante oscuro luxury
+  const gradient = ctx.createLinearGradient(0, 0, 1200, 850);
+  gradient.addColorStop(0, '#0B0F19');
+  gradient.addColorStop(0.5, '#111827');
+  gradient.addColorStop(1, '#05070D');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 1200, 850);
+
+  // 2. Borde exterior (Gradiente Royal Blue & Lime)
+  const borderGrad = ctx.createLinearGradient(0, 0, 1200, 850);
+  borderGrad.addColorStop(0, '#2563EB');
+  borderGrad.addColorStop(0.5, '#4ADE80');
+  borderGrad.addColorStop(1, '#2563EB');
+
+  ctx.strokeStyle = borderGrad;
+  ctx.lineWidth = 12;
+  ctx.strokeRect(30, 30, 1140, 790);
+
+  // 3. Marco dorado interno
+  ctx.strokeStyle = '#FACC15';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(45, 45, 1110, 760);
+
+  // Esquinas ornamentales
+  ctx.fillStyle = '#4ADE80';
+  ctx.fillRect(40, 40, 30, 4);
+  ctx.fillRect(40, 40, 4, 30);
+  ctx.fillRect(1130, 40, 30, 4);
+  ctx.fillRect(1156, 40, 4, 30);
+  ctx.fillRect(40, 806, 30, 4);
+  ctx.fillRect(40, 780, 4, 30);
+  ctx.fillRect(1130, 806, 30, 4);
+  ctx.fillRect(1156, 780, 4, 30);
+
+  // 4. Encabezado Marca: "SKILLUP"
+  ctx.textAlign = 'center';
+  ctx.font = '900 42px sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText('SKILLUP', 600, 120);
+
+  // Sub-header
+  ctx.font = '600 13px sans-serif';
+  ctx.fillStyle = '#4ADE80';
+  ctx.fillText('ACADEMIA VIRTUAL DE ALTA ESPECIALIZACIÓN', 600, 145);
+
+  // Línea divisora
+  ctx.beginPath();
+  ctx.moveTo(450, 165);
+  ctx.lineTo(750, 165);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  // 5. Título Principal: "CERTIFICADO DE APROBACIÓN"
+  ctx.font = '800 32px Georgia, serif';
+  ctx.fillStyle = '#FACC15';
+  ctx.fillText('CERTIFICADO DE APROBACIÓN', 600, 220);
+
+  // Subtítulo
+  ctx.font = '400 15px sans-serif';
+  ctx.fillStyle = '#9CA3AF';
+  ctx.fillText('El Centro de Capacitación y Alta Especialización SkillUP otorga el presente reconocimiento a:', 600, 270);
+
+  // 6. Nombre del Alumno
+  ctx.font = '900 38px sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(studentName.toUpperCase(), 600, 340);
+
+  // Línea verde under name
+  ctx.beginPath();
+  ctx.moveTo(300, 360);
+  ctx.lineTo(900, 360);
+  ctx.strokeStyle = '#4ADE80';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  // 7. Texto del logro
+  ctx.font = '400 16px sans-serif';
+  ctx.fillStyle = '#D1D5DB';
+  ctx.fillText('Por haber cumplido y aprobado satisfactoriamente el curso virtual en vivo de 12 horas pedagógicas:', 600, 415);
+
+  // Nombre del Curso
+  ctx.font = '900 34px sans-serif';
+  ctx.fillStyle = '#3B82F6';
+  ctx.fillText(`“ ${course.nombre} ”`, 600, 475);
+
+  // Detalle adicional
+  ctx.font = '500 14px sans-serif';
+  ctx.fillStyle = '#9CA3AF';
+  ctx.fillText(`Desarrollado en modalidad en vivo con evaluación continua y proyecto aplicativo final.`, 600, 520);
+
+  // Fecha y Lugar
+  ctx.font = '500 14px sans-serif';
+  ctx.fillStyle = '#E5E7EB';
+  ctx.fillText(`Lima, Perú — ${certDate}`, 600, 570);
+
+  // 8. Firmas
+  // Izquierda: Docente
+  ctx.beginPath();
+  ctx.moveTo(250, 680);
+  ctx.lineTo(470, 680);
+  ctx.strokeStyle = '#6B7280';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.font = '700 14px sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(teacherName, 360, 705);
+  ctx.font = '400 12px sans-serif';
+  ctx.fillStyle = '#9CA3AF';
+  ctx.fillText('Docente Instructor del Curso', 360, 725);
+
+  // Derecha: Dirección Académica
+  ctx.beginPath();
+  ctx.moveTo(730, 680);
+  ctx.lineTo(950, 680);
+  ctx.strokeStyle = '#6B7280';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.font = '700 14px sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText('SkillUP Educación S.A.C.', 840, 705);
+  ctx.font = '400 12px sans-serif';
+  ctx.fillStyle = '#9CA3AF';
+  ctx.fillText('Dirección de Certificación Académica', 840, 725);
+
+  // Sello Central Insignia
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(600, 675, 42, 0, Math.PI * 2);
+  ctx.fillStyle = '#10172A';
+  ctx.fill();
+  ctx.strokeStyle = '#FACC15';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.font = '800 10px sans-serif';
+  ctx.fillStyle = '#FACC15';
+  ctx.fillText('EXCELENCIA', 600, 665);
+  ctx.font = '900 16px sans-serif';
+  ctx.fillStyle = '#4ADE80';
+  ctx.fillText('12 HRS', 600, 682);
+  ctx.font = '700 9px sans-serif';
+  ctx.fillStyle = '#9CA3AF';
+  ctx.fillText('VERIFICADO', 600, 696);
+  ctx.restore();
+
+  // 9. Pie de página: Código de Verificación y Web
+  ctx.font = '600 11px monospace';
+  ctx.fillStyle = '#6B7280';
+  ctx.textAlign = 'left';
+  ctx.fillText(`CÓDIGO DE VERIFICACIÓN: ${certCode}`, 60, 800);
+
+  ctx.textAlign = 'right';
+  ctx.fillText(`VERIFICACIÓN OFICIAL: SKILLUP1102@GMAIL.COM`, 1140, 800);
+}
+
+function descargarCertificadoPNG() {
+  const canvas = document.getElementById('cert-canvas');
+  if (!canvas) return;
+
+  const studentName = document.getElementById('cert-student-name')?.value.trim() || "Alumno";
+  const courseId = parseInt(document.getElementById('cert-course-select')?.value) || 1;
+  const course = productosMemoria.find(c => c.id === courseId) || { nombre: "Curso" };
+
+  const fileName = `Certificado_SkillUP_${studentName.replace(/\s+/g, '_')}_${course.nombre.replace(/\s+/g, '_')}.png`;
+
+  const imageURL = canvas.toDataURL('image/png');
+  const downloadLink = document.createElement('a');
+  downloadLink.href = imageURL;
+  downloadLink.download = fileName;
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+
+  showToast('🎓 Certificado PNG HD descargado exitosamente');
+}
+
+function compartirCertificadoWhatsApp() {
+  const studentName = document.getElementById('cert-student-name')?.value.trim() || "Alumno";
+  const courseId = parseInt(document.getElementById('cert-course-select')?.value) || 1;
+  const course = productosMemoria.find(c => c.id === courseId) || { nombre: "Curso" };
+  const certCode = document.getElementById('cert-code-input')?.value.trim() || "SKILLUP-2026-XXXXX";
+
+  const wsNumber = (typeof CONFIG !== 'undefined' && CONFIG.whatsapp) ? CONFIG.whatsapp : '51986416703';
+
+  const mensaje = `¡Hola *${studentName}*! 🎓✨\n\n¡Felicitaciones de parte del equipo de *SkillUP*!\nHas culminado y aprobado con éxito el curso virtual en vivo *"${course.nombre}"* (12 Horas Pedagógicas).\n\n📌 *Código Único de Verificación*: ${certCode}\n\nTe enviamos tu certificado en formato de imagen HD PNG en el archivo adjunto. ¡Sigue potenciando tu perfil profesional! 🚀`;
+
+  const url = `https://wa.me/${wsNumber}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
+}
+
+/* ============================================================
    TOAST DE NOTIFICACIÓN
    ============================================================ */
 function showToast(msg) {
@@ -596,3 +881,4 @@ function showToast(msg) {
   clearTimeout(toast._t);
   toast._t = setTimeout(() => toast.classList.remove('toast-show'), 2800);
 }
+
