@@ -729,20 +729,20 @@ function renderCertificateCanvas() {
 
   // 4. Logo Oficial SkillUP en Encabezado
   if (certLogoImg.complete && certLogoImg.naturalWidth > 0) {
-    const logoW = 240;
+    const logoW = 280;
     const logoH = (certLogoImg.naturalHeight / certLogoImg.naturalWidth) * logoW;
-    ctx.drawImage(certLogoImg, 600 - (logoW / 2), 70, logoW, logoH);
+    ctx.drawImage(certLogoImg, 600 - (logoW / 2), 75, logoW, logoH);
   } else {
     ctx.textAlign = 'center';
     ctx.font = '900 44px sans-serif';
     ctx.fillStyle = '#2563EB';
-    ctx.fillText('SKILLUP', 600, 105);
+    ctx.fillText('SKILLUP', 600, 110);
   }
 
   // Línea divisora elegante con amplio espaciado
   ctx.beginPath();
-  ctx.moveTo(430, 148);
-  ctx.lineTo(770, 148);
+  ctx.moveTo(420, 160);
+  ctx.lineTo(780, 160);
   ctx.strokeStyle = '#E5E7EB';
   ctx.lineWidth = 1.5;
   ctx.stroke();
@@ -751,22 +751,22 @@ function renderCertificateCanvas() {
   ctx.textAlign = 'center';
   ctx.font = '800 32px Georgia, serif';
   ctx.fillStyle = '#1E3A8A';
-  ctx.fillText('CERTIFICADO DE APROBACIÓN', 600, 205);
+  ctx.fillText('CERTIFICADO DE APROBACIÓN', 600, 225);
 
   // Subtítulo
   ctx.font = '400 15px sans-serif';
   ctx.fillStyle = '#4B5563';
-  ctx.fillText('El Centro de Capacitación y Alta Especialización SkillUP otorga el presente reconocimiento a:', 600, 265);
+  ctx.fillText('El Centro de Capacitación y Alta Especialización SkillUP otorga el presente reconocimiento a:', 600, 280);
 
   // 6. Nombre del Alumno
   ctx.font = '900 38px sans-serif';
   ctx.fillStyle = '#0F172A';
-  ctx.fillText(studentName.toUpperCase(), 600, 335);
+  ctx.fillText(studentName.toUpperCase(), 600, 350);
 
   // Línea verde under name
   ctx.beginPath();
-  ctx.moveTo(300, 355);
-  ctx.lineTo(900, 355);
+  ctx.moveTo(300, 370);
+  ctx.lineTo(900, 370);
   ctx.strokeStyle = '#16A34A';
   ctx.lineWidth = 3;
   ctx.stroke();
@@ -774,7 +774,7 @@ function renderCertificateCanvas() {
   // 7. Texto del logro
   ctx.font = '400 16px sans-serif';
   ctx.fillStyle = '#374151';
-  ctx.fillText('Por haber cumplido y aprobado satisfactoriamente el curso virtual en vivo de 12 horas pedagógicas:', 600, 410);
+  ctx.fillText('Por haber cumplido y aprobado satisfactoriamente el curso virtual en vivo de 12 horas pedagógicas:', 600, 420);
 
   // Nombre del Curso
   ctx.font = '900 34px sans-serif';
