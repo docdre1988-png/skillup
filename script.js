@@ -28,6 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ── Carga y Persistencia de Cursos (LocalStorage / Config) ───── */
 function cargarProductos() {
   const baseConfig = typeof PRODUCTOS !== 'undefined' ? PRODUCTOS : [];
+
+  // Para visitantes públicos (alumnos), cargar SIEMPRE la configuración oficial de config.js.
+  // Esto asegura que cualquier actualización publicada en GitHub sea visible al instante para todos.
+  if (!isAdminAuthed) {
+    productosMemoria = JSON.parse(JSON.stringify(baseConfig));
+    return;
+  }
+
   const guardados = localStorage.getItem('skillup_catalogo_v1');
   if (guardados) {
     try {
@@ -48,7 +56,7 @@ function cargarProductos() {
       console.error('Error al cargar datos guardados:', e);
     }
   }
-  // Fallback inicial a PRODUCTOS de config.js
+  // Fallback a PRODUCTOS de config.js
   productosMemoria = JSON.parse(JSON.stringify(baseConfig));
 }
 
@@ -497,6 +505,7 @@ function checkAdminPass() {
   const pass = document.getElementById('admin-pass-input').value;
   if (pass === 'admin31416' || pass === 'admin' || pass === 'skillup2026' || pass === '1234') {
     isAdminAuthed = true;
+    cargarProductos();
     document.getElementById('admin-login-screen').classList.add('hidden');
     document.getElementById('admin-dashboard').classList.remove('hidden');
     renderAdminProductsList();
