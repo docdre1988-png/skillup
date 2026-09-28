@@ -29,6 +29,10 @@ const CONFIG = {
 
   // Sistema
   imgbbApiKey:          "6d207e02198a847aa5a10a8b90161311",
+
+  // JSONBin — almacenamiento en la nube para actualizaciones en tiempo real
+  jsonbinId:            "6abaa641ac6210605afed37b",
+  jsonbinKey:           "$2a$10$FiQGCp5z5/.9GafGMhrcdO9WavjBxrbtyQxyao6nrzeUFjxRsz.xy",
 };
 
 // ============================================================

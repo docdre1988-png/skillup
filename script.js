@@ -25,17 +25,40 @@ document.addEventListener('DOMContentLoaded', () => {
   lucide.createIcons();
 });
 
-/* ── Carga y Persistencia de Cursos (LocalStorage / Config) ───── */
-function cargarProductos() {
+/* ── Carga y Persistencia de Cursos (JSONBin / LocalStorage / Config) ─── */
+async function cargarProductos() {
   const baseConfig = typeof PRODUCTOS !== 'undefined' ? PRODUCTOS : [];
 
-  // Para visitantes públicos (alumnos), cargar SIEMPRE la configuración oficial de config.js.
-  // Esto asegura que cualquier actualización publicada en GitHub sea visible al instante para todos.
   if (!isAdminAuthed) {
+    // Visitantes públicos: leer siempre desde JSONBin (datos en la nube)
+    try {
+      const res = await fetch(
+        `https://api.jsonbin.io/v3/b/${CONFIG.jsonbinId}/latest`,
+        { headers: { 'X-Access-Key': CONFIG.jsonbinKey } }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const remoteProd = data.record && data.record.productos;
+        if (Array.isArray(remoteProd) && remoteProd.length > 0) {
+          // Mezclar datos remotos con sylabi completos de config.js (que no se guardan en JSONBin)
+          productosMemoria = remoteProd.map(item => {
+            const original = baseConfig.find(b => b.id === item.id);
+            return original ? { ...original, ...item } : item;
+          });
+          renderCatalogo(categoriaActiva);
+          renderScheduleTable();
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn('JSONBin no disponible, usando config.js:', e);
+    }
+    // Fallback a config.js
     productosMemoria = JSON.parse(JSON.stringify(baseConfig));
     return;
   }
 
+  // Admin: usar localStorage como borrador de trabajo
   const guardados = localStorage.getItem('skillup_catalogo_v1');
   if (guardados) {
     try {
@@ -43,11 +66,7 @@ function cargarProductos() {
       productosMemoria = parsed.map(item => {
         const original = baseConfig.find(b => b.id === item.id);
         if (original) {
-          return {
-            ...original,
-            ...item,
-            imagen: original.imagen || item.imagen
-          };
+          return { ...original, ...item, imagen: original.imagen || item.imagen };
         }
         return item;
       });
@@ -56,7 +75,6 @@ function cargarProductos() {
       console.error('Error al cargar datos guardados:', e);
     }
   }
-  // Fallback a PRODUCTOS de config.js
   productosMemoria = JSON.parse(JSON.stringify(baseConfig));
 }
 
@@ -586,50 +604,51 @@ function adminGuardarProducto() {
 
   guardarProductosEnStorage();
   document.getElementById('admin-form-backdrop').classList.add('hidden');
-  showToast('💾 Programación de fechas guardada con éxito');
+  showToast('💾 Guardado localmente. Publicando en la nube...');
+
+  // Publicar automáticamente a JSONBin para que todos los visitantes vean el cambio
+  publicarEnJSONBin();
 }
 
-function descargarArchivoConfig() {
-  const contenido = `// ============================================================
-//  config.js — Configuración de datos de SkillUP
-//  Generado desde el Dashboard Administrador
-// ============================================================
 
-const CONFIG = {
-  negocio:              "${CONFIG.negocio || 'SkillUP'}",
-  slogan:               "${CONFIG.slogan || 'Aprende hoy, crea mañana'}",
-  nombreComercial:      "${CONFIG.nombreComercial || 'SkillUP'}",
-  razonSocial:          "${CONFIG.razonSocial || 'SkillUP Educación Virtual S.A.C.'}",
-  ruc:                  "${CONFIG.ruc || '20789456123'}",
-  direccion:            "${CONFIG.direccion || 'Lima, Perú'}",
-  correo:               "${CONFIG.correo || 'contacto@skillup.pe'}",
-  whatsapp:             "${CONFIG.whatsapp || '51986416703'}",
-  horarios:             "${CONFIG.horarios || 'Atención en vivo: Lun - Sáb · 9am - 8pm'}",
-  facebook:             "${CONFIG.facebook || 'https://www.facebook.com/profile.php?id=61578189016019'}",
-  tiktok:               "${CONFIG.tiktok || 'https://www.tiktok.com/@skillup.cursos?is_from_webapp=1&sender_device=pc'}",
-  moneda:               "${CONFIG.moneda || 'S/'}",
-  precioRegular:        100,
-  precioApertura:       80,
-  periodoAcademico:     "Septiembre a diciembre de 2026",
-  fechaActualizacion:   "Septiembre 2026",
-  libroReclamacionesUrl:"libro-de-reclamaciones.html"
-};
+async function publicarEnJSONBin() {
+  // Construir objeto compacto (solo campos dinámicos que el admin puede cambiar)
+  const payload = {
+    productos: productosMemoria.map(p => ({
+      id:          p.id,
+      nombre:      p.nombre,
+      precio:      p.precio,
+      disponible:  p.disponible,
+      destacado:   p.destacado,
+      fechaInicio: p.fechaInicio,
+      fechaFin:    p.fechaFin,
+      diasClase:   p.diasClase,
+      horarioClase:p.horarioClase,
+      estadoCurso: p.estadoCurso
+    }))
+  };
 
-const PRODUCTOS = ${JSON.stringify(productosMemoria, null, 2)};
-`;
-
-  const blob = new Blob([contenido], { type: 'text/javascript;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'config.js';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-
-  showToast('💾 Archivo config.js descargado con éxito');
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${CONFIG.jsonbinId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': CONFIG.jsonbinKey
+      },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      showToast('🌐 ¡Cambios publicados! Todos los visitantes verán la actualización en segundos.');
+    } else {
+      showToast('⚠️ Guardado local OK, pero hubo un error al publicar en la nube.');
+    }
+  } catch (e) {
+    console.error('Error publicando en JSONBin:', e);
+    showToast('⚠️ Sin conexión — cambios guardados localmente únicamente.');
+  }
 }
+
+
 
 /* ============================================================
    GENERADOR DE CERTIFICADOS EN IMAGEN HD (CANVAS 2D)

@@ -902,20 +902,21 @@
               <h4 class="font-bold text-white text-sm">Programación Operativa de Fechas</h4>
               <p class="text-xs text-zinc-400">Modifica fechas de inicio/fin, días y horarios de cada curso (Punto 10 del Plan).</p>
             </div>
-            <button id="admin-download-config-btn" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow">
-              <i data-lucide="download" class="w-4 h-4"></i> Guardar y Descargar config.js
+            <button id="admin-publish-btn" onclick="publicarEnJSONBin()" class="bg-green-600 hover:bg-green-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow">
+              <i data-lucide="globe" class="w-4 h-4"></i> Publicar Todo en Vivo
             </button>
           </div>
 
-          <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-3 text-xs text-blue-200 flex items-start gap-2.5">
-            <i data-lucide="info" class="w-4 h-4 text-[#3B82F6] flex-shrink-0 mt-0.5"></i>
+          <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-3 text-xs text-green-200 flex items-start gap-2.5">
+            <i data-lucide="check-circle" class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5"></i>
             <div>
-              <strong class="text-white block font-bold">📢 ¿Cómo publicar los cambios para todos los alumnos?</strong>
+              <strong class="text-white block font-bold">🌐 Actualización automática activada</strong>
               <p class="text-zinc-300 text-[11px] mt-0.5 leading-relaxed">
-                Al modificar un curso, los cambios se aplican de inmediato en tu panel. Para que todos los visitantes vean las nuevas fechas y precios en vivo en la web, haz clic en <strong>"Guardar y Descargar config.js"</strong> y reemplaza el archivo en tu repositorio de GitHub (o compárteme los datos para actualizarlo directamente por ti).
+                Al guardar un curso, los cambios se publican automáticamente en la nube (JSONBin). Todos los visitantes verán las nuevas fechas, precios y estados <strong>en segundos</strong>, sin necesidad de tocar GitHub.
               </p>
             </div>
           </div>
+
 
           <div id="admin-products-list" class="space-y-3">
             <!-- Inyectado por JS -->
